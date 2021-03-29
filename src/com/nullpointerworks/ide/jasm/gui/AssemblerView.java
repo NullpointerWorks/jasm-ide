@@ -1,7 +1,6 @@
 package com.nullpointerworks.ide.jasm.gui;
 
 import java.awt.BorderLayout;
-import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
