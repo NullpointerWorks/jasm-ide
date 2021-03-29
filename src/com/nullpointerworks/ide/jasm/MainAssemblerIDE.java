@@ -1,7 +1,7 @@
 package com.nullpointerworks.ide.jasm;
 
-import com.nullpointerworks.ide.jasm.gui.AssemblerView;
-import com.nullpointerworks.ide.jasm.gui.swing.UILookAndFeel;
+import com.nullpointerworks.ide.jasm.view.gui.AssemblerView;
+import com.nullpointerworks.ide.jasm.view.gui.swing.UILookAndFeel;
 
 public class MainAssemblerIDE 
 {

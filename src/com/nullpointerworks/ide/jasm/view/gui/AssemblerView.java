@@ -1,4 +1,4 @@
-package com.nullpointerworks.ide.jasm.gui;
+package com.nullpointerworks.ide.jasm.view.gui;
 
 import java.awt.BorderLayout;
 
@@ -13,9 +13,9 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import com.nullpointerworks.ide.jasm.Resources;
-import com.nullpointerworks.ide.jasm.gui.awt.AbsoluteLayout;
-import com.nullpointerworks.ide.jasm.gui.swing.CodeJScrollPane;
-import com.nullpointerworks.ide.jasm.gui.swing.JTextAreaScrollPane;
+import com.nullpointerworks.ide.jasm.view.gui.awt.AbsoluteLayout;
+import com.nullpointerworks.ide.jasm.view.gui.swing.CodeJScrollPane;
+import com.nullpointerworks.ide.jasm.view.gui.swing.JTextAreaScrollPane;
 
 public class AssemblerView
 {

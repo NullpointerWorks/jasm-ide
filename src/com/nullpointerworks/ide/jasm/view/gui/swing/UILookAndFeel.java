@@ -1,4 +1,4 @@
-package com.nullpointerworks.ide.jasm.gui.swing;
+package com.nullpointerworks.ide.jasm.view.gui.swing;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
