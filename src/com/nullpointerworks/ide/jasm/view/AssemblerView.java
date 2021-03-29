@@ -1,6 +1,7 @@
 package com.nullpointerworks.ide.jasm.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -157,25 +158,30 @@ public class AssemblerView
 		
 		
 		
-
+		
+		/*
 		cjspCode = new CodeJScrollPane();
 		cjspCode.appendLine(".def EXIT 0");
-		cjspCode.appendLine(".def OUT_A 1");
+		cjspCode.appendLine(".def PRINT_A 1");
 		cjspCode.appendLine("");
-		cjspCode.appendLine("main:");
 		cjspCode.appendLine("  load a,10");
 		cjspCode.appendLine("loop:");
-		cjspCode.appendLine("  int OUT_A");
+		cjspCode.appendLine("  int PRINT_A");
 		cjspCode.appendLine("  dec a");
 		cjspCode.appendLine("  jne loop");
 		cjspCode.append("  int EXIT");
 		jtpSourceTabs.add("main.jasm", cjspCode);
+		//*/
 	}
-	
-	
 	
 	public void setVisible(boolean b)
 	{
 		jfWindow.setVisible(b);
 	}
+	
+	public void setOpenButtonAction(ActionListener al)
+	{
+		jbOpenFile.addActionListener(al);
+	}
+	
 }

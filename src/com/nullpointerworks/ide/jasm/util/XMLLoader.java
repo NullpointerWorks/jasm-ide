@@ -23,7 +23,7 @@ public class XMLLoader
 	private final Prolog prolog = new XMLProlog(Version.V10, Encoding.UTF8, StandAlone.NO);
 	private final DocumentWriter writer = new DocumentWriter(format);
 	
-	public final Document loadXML(PathMaker path)
+	public final Document loadXML(PathBuilder path)
 	{
 		DOMLoader dl = new DOMDocumentLoader();
 		Document doc = null;
@@ -40,13 +40,13 @@ public class XMLLoader
 		return doc;
 	}
 	
-	public final boolean existsXML(PathMaker path)
+	public final boolean existsXML(PathBuilder path)
 	{
 		File f = new File(path.filePath());
 		return f.exists();
 	}
 	
-	public final Document createXML(PathMaker path, String root) 
+	public final Document createXML(PathBuilder path, String root) 
 	{
 		File f = new File(path.folderPath());
 		if (!f.exists()) f.mkdirs();
@@ -58,7 +58,7 @@ public class XMLLoader
 		return doc;
 	}
 	
-	public final boolean saveXML(Document doc, PathMaker path)
+	public final boolean saveXML(Document doc, PathBuilder path)
 	{
 		doc.setProlog(prolog);
 		try

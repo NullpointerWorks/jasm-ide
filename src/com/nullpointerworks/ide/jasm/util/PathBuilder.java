@@ -10,7 +10,7 @@ import java.util.List;
  * @author Michiel Drost - Nullpointer Works
  * @since 1.0.0
  */
-public class PathMaker 
+public class PathBuilder 
 {
 	private List<String> folders = null;
 	private String file = "";
@@ -19,7 +19,7 @@ public class PathMaker
 	 * 
 	 * @since 1.0.0
 	 */
-	public PathMaker()
+	public PathBuilder()
 	{
 		folders = new ArrayList<String>();
 	}
@@ -28,7 +28,7 @@ public class PathMaker
 	 * 
 	 * @since 1.0.0
 	 */
-	public PathMaker(String path) 
+	public PathBuilder(String path) 
 	{
 		this();
 		boolean fend = false;
@@ -56,7 +56,7 @@ public class PathMaker
 	 * 
 	 * @since 1.0.0
 	 */
-	private PathMaker(List<String> d, String file) 
+	private PathBuilder(List<String> d, String file) 
 	{
 		this();
 		for (String dir : d) folder(dir);
@@ -69,7 +69,7 @@ public class PathMaker
 	 * 
 	 * @since 1.0.0
 	 */
-	public PathMaker folder(String folder)
+	public PathBuilder folder(String folder)
 	{
 		folder = folder.replace("\\", "/");
 		String[] nav = folder.split("/");
@@ -88,7 +88,7 @@ public class PathMaker
 	 * 
 	 * @since 1.0.0
 	 */
-	public PathMaker pop()
+	public PathBuilder pop()
 	{
 		folders.remove(folders.size()-1);
 		return this;
@@ -112,7 +112,7 @@ public class PathMaker
 	 * 
 	 * @since 1.0.0
 	 */
-	public PathMaker file(String file)
+	public PathBuilder file(String file)
 	{
 		this.file=file.trim();
 		return this;
@@ -140,7 +140,7 @@ public class PathMaker
 	 * 
 	 * @since 1.0.0
 	 */
-	public PathMaker fileName(String file)
+	public PathBuilder fileName(String file)
 	{
 		this.file=file;
 		return this;
@@ -161,16 +161,16 @@ public class PathMaker
 	 * 
 	 * @since 1.0.0
 	 */
-	public PathMaker copy()
+	public PathBuilder copy()
 	{
-		return new PathMaker(folders,file);
+		return new PathBuilder(folders,file);
 	}
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public PathMaker add(PathMaker url)
+	public PathBuilder add(PathBuilder url)
 	{
 		this.folder(url.folderPath());
 		this.file(url.fileName());
