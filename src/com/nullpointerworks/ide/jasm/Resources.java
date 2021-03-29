@@ -21,7 +21,11 @@ public final class Resources
 		"/com/nullpointerworks/ide/resources/btn_ASM.png",
 		"/com/nullpointerworks/ide/resources/btn_RUN2.png",
 		"/com/nullpointerworks/ide/resources/btn_DROP.png",
-		"/com/nullpointerworks/ide/resources/btn_ASM_RUN2.png"
+		"/com/nullpointerworks/ide/resources/btn_ASM_RUN2.png",
+		"/com/nullpointerworks/ide/resources/tab_CloseActive.png",
+		"/com/nullpointerworks/ide/resources/tab_CloseIdle.png",
+		"/com/nullpointerworks/ide/resources/file_ASM.png",
+		"/com/nullpointerworks/ide/resources/btn_CNFG.png"
 	};
 	
 	public static ImageIcon getStreamedIcon(String path) 
@@ -72,4 +76,16 @@ public final class Resources
 	
 	public static ImageIcon getBuildAndRunIcon()
 	{return getStreamedIcon(iconsURL[10]);}
+	
+	public static ImageIcon getTabCloseActiveIcon()
+	{return getStreamedIcon(iconsURL[11]);}
+	
+	public static ImageIcon getTabCloseIdleIcon()
+	{return getStreamedIcon(iconsURL[12]);}
+	
+	public static ImageIcon getASMFileIcon()
+	{return getStreamedIcon(iconsURL[13]);}
+	
+	public static ImageIcon getConfigIcon()
+	{return getStreamedIcon(iconsURL[14]);}
 }

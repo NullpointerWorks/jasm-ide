@@ -1,0 +1,9 @@
+.def EXIT 0
+.def PRINT_A 1
+
+  load a,10
+loop:
+  int PRINT_A
+  dec a
+  jne loop
+  int EXIT

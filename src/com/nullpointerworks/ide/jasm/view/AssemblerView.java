@@ -2,6 +2,7 @@ package com.nullpointerworks.ide.jasm.view;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import javax.swing.SwingConstants;
 import com.nullpointerworks.ide.jasm.Resources;
 import com.nullpointerworks.ide.jasm.view.gui.awt.AbsoluteLayout;
 import com.nullpointerworks.ide.jasm.view.gui.swing.CodeJScrollPane;
+import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableJTabbedPane;
 import com.nullpointerworks.ide.jasm.view.gui.swing.JTextAreaScrollPane;
 
 public class AssemblerView
@@ -25,13 +27,12 @@ public class AssemblerView
 	private JToolBar jtbToolRibbon;
 	private JTabbedPane jtpSourceTabs;
 	private JTabbedPane jtpBottomTabs;
-	
-	private CodeJScrollPane cjspCode;
 
 	private JButton jbNewFile;
 	private JButton jbOpenFile;
 	private JButton jbSaveFile;
 	private JButton jbSaveAll;
+	private JButton jbConfigAll;
 	private JButton jbAssemble;
 	private JButton jbRunVM;
 	private JButton jbBuildNRun;
@@ -49,7 +50,7 @@ public class AssemblerView
 		jbNewFile = new JButton(Resources.getNewIcon() );
 		jbNewFile.setVerticalTextPosition(AbstractButton.BOTTOM);
 		jbNewFile.setHorizontalTextPosition(AbstractButton.CENTER);
-		jbNewFile.setToolTipText("Create something new.");
+		jbNewFile.setToolTipText("Create a new file");
 		jbNewFile.setLocation(0, 0);
 		jbNewFile.setSize(32, 32);
 		jbNewFile.setPreferredSize(jbNewFile.getSize());
@@ -57,7 +58,7 @@ public class AssemblerView
 		jbOpenFile = new JButton(Resources.getOpenIcon() );
 		jbOpenFile.setVerticalTextPosition(AbstractButton.BOTTOM);
 		jbOpenFile.setHorizontalTextPosition(AbstractButton.CENTER);
-		jbOpenFile.setToolTipText("Open an existing source file.");
+		jbOpenFile.setToolTipText("Open an existing file");
 		jbOpenFile.setLocation(32, 0);
 		jbOpenFile.setSize(32, 32);
 		jbOpenFile.setPreferredSize(jbOpenFile.getSize());
@@ -65,7 +66,7 @@ public class AssemblerView
 		jbSaveFile = new JButton(Resources.getSaveIcon() );
 		jbSaveFile.setVerticalTextPosition(AbstractButton.BOTTOM);
 		jbSaveFile.setHorizontalTextPosition(AbstractButton.CENTER);
-		jbSaveFile.setToolTipText("Save the currently editing file.");
+		jbSaveFile.setToolTipText("Save the current file");
 		jbSaveFile.setLocation(64, 0);
 		jbSaveFile.setSize(32, 32);
 		jbSaveFile.setPreferredSize(jbSaveFile.getSize());
@@ -73,32 +74,40 @@ public class AssemblerView
 		jbSaveAll = new JButton(Resources.getSaveAllIcon() );
 		jbSaveAll.setVerticalTextPosition(AbstractButton.BOTTOM);
 		jbSaveAll.setHorizontalTextPosition(AbstractButton.CENTER);
-		jbSaveAll.setToolTipText("Save all edited files.");
+		jbSaveAll.setToolTipText("Save all files");
 		jbSaveAll.setLocation(96, 0);
 		jbSaveAll.setSize(32, 32);
 		jbSaveAll.setPreferredSize(jbSaveAll.getSize());
 		
+		jbConfigAll = new JButton(Resources.getConfigIcon() );
+		jbConfigAll.setVerticalTextPosition(AbstractButton.BOTTOM);
+		jbConfigAll.setHorizontalTextPosition(AbstractButton.CENTER);
+		jbConfigAll.setToolTipText("Open configuration");
+		jbConfigAll.setLocation(128, 0);
+		jbConfigAll.setSize(32, 32);
+		jbConfigAll.setPreferredSize(jbConfigAll.getSize());
+		
 		jbAssemble = new JButton(Resources.getAssembleIcon() );
 		jbAssemble.setVerticalTextPosition(AbstractButton.BOTTOM);
 		jbAssemble.setHorizontalTextPosition(AbstractButton.CENTER);
-		jbAssemble.setToolTipText("Assemble the current project.");
-		jbAssemble.setLocation(128, 0);
+		jbAssemble.setToolTipText("Assemble");
+		jbAssemble.setLocation(160, 0);
 		jbAssemble.setSize(32, 32);
 		jbAssemble.setPreferredSize(jbAssemble.getSize());
 		
 		jbRunVM = new JButton(Resources.getRunIcon() );
 		jbRunVM.setVerticalTextPosition(AbstractButton.BOTTOM);
 		jbRunVM.setHorizontalTextPosition(AbstractButton.CENTER);
-		jbRunVM.setToolTipText("Run the previous build for this program.");
-		jbRunVM.setLocation(160, 0);
+		jbRunVM.setToolTipText("Run lastest build");
+		jbRunVM.setLocation(192, 0);
 		jbRunVM.setSize(32, 32);
 		jbRunVM.setPreferredSize(jbRunVM.getSize());
 		
 		jbBuildNRun = new JButton(Resources.getBuildAndRunIcon() );
 		jbBuildNRun.setVerticalTextPosition(AbstractButton.BOTTOM);
 		jbBuildNRun.setHorizontalTextPosition(AbstractButton.CENTER);
-		jbBuildNRun.setToolTipText("Build and run the program.");
-		jbBuildNRun.setLocation(192, 0);
+		jbBuildNRun.setToolTipText("Assemble and run build");
+		jbBuildNRun.setLocation(224, 0);
 		jbBuildNRun.setSize(32, 32);
 		jbBuildNRun.setPreferredSize(jbBuildNRun.getSize());
 		
@@ -108,6 +117,8 @@ public class AssemblerView
 		jtbToolRibbon.add(jbSaveFile);
 		jtbToolRibbon.add(jbSaveAll);
 		jtbToolRibbon.addSeparator();
+		jtbToolRibbon.add(jbConfigAll);
+		jtbToolRibbon.addSeparator();
 		jtbToolRibbon.add(jbAssemble);
 		jtbToolRibbon.add(jbRunVM);
 		jtbToolRibbon.add(jbBuildNRun);
@@ -115,7 +126,7 @@ public class AssemblerView
 		/*
 		 * construct upper tab pane
 		 */
-		jtpSourceTabs = new JTabbedPane();  
+		jtpSourceTabs = new ClosableJTabbedPane();  
 		jtpSourceTabs.setSize(800,350);
 		jtpSourceTabs.setPreferredSize(jtpSourceTabs.getSize());
 		
@@ -147,7 +158,7 @@ public class AssemblerView
 		jpInterface.add(jspSplitScreen);
 		
 		jfWindow = new JFrame();
-		jfWindow.setTitle("JASM Assembler");
+		jfWindow.setTitle("JASM Assembler IDE");
 		jfWindow.setLayout( new AbsoluteLayout() );
 		jfWindow.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		jfWindow.setResizable(false);
@@ -155,12 +166,18 @@ public class AssemblerView
 		jfWindow.pack();
 		jfWindow.validate();
 		jfWindow.setLocationRelativeTo(null);
+	}
+	
+	public void openSourceFile(File f)
+	{
 		
 		
 		
 		
-		/*
-		cjspCode = new CodeJScrollPane();
+		
+		
+		
+		CodeJScrollPane cjspCode = new CodeJScrollPane();
 		cjspCode.appendLine(".def EXIT 0");
 		cjspCode.appendLine(".def PRINT_A 1");
 		cjspCode.appendLine("");
@@ -170,13 +187,7 @@ public class AssemblerView
 		cjspCode.appendLine("  dec a");
 		cjspCode.appendLine("  jne loop");
 		cjspCode.append("  int EXIT");
-		jtpSourceTabs.add("main.jasm", cjspCode);
-		//*/
-	}
-	
-	public void setVisible(boolean b)
-	{
-		jfWindow.setVisible(b);
+		jtpSourceTabs.addTab("main.jasm", Resources.getASMFileIcon(), cjspCode);
 	}
 	
 	public void setOpenButtonAction(ActionListener al)
@@ -184,4 +195,8 @@ public class AssemblerView
 		jbOpenFile.addActionListener(al);
 	}
 	
+	public void setVisible(boolean b)
+	{
+		jfWindow.setVisible(b);
+	}
 }
