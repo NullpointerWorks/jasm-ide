@@ -1,6 +1,7 @@
 package com.nullpointerworks.ide.jasm.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -17,7 +18,7 @@ import com.nullpointerworks.ide.jasm.gui.awt.AbsoluteLayout;
 import com.nullpointerworks.ide.jasm.gui.swing.CodeJScrollPane;
 import com.nullpointerworks.ide.jasm.gui.swing.JTextAreaScrollPane;
 
-public class AssemblerView 
+public class AssemblerView
 {
 	private JFrame jfWindow;
 	private JPanel jpInterface;
@@ -105,7 +106,7 @@ public class AssemblerView
 		
 		
 		/*
-		 * construct higher tab pane
+		 * construct upper tab pane
 		 */
 		cjspCode = new CodeJScrollPane();
 		cjspCode.setSize(500, 300);
@@ -170,7 +171,4 @@ public class AssemblerView
 	{
 		jfWindow.setVisible(b);
 	}
-	
-	
-	
 }

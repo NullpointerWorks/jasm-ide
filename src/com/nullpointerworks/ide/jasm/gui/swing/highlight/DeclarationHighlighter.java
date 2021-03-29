@@ -12,9 +12,10 @@ public class DeclarationHighlighter implements HighlightValidator
 	@Override
 	public boolean isValid(String token) 
 	{
-		if (token.equals(".def")) return true;
 		if (token.equals(".inc")) return true;
-		if (token.equals(".org")) return true;
+		if (token.equals(".def")) return true;
+		if (token.equals(".data")) return true;
+		if (token.equals(".res")) return true;
 		return false;
 	}
 

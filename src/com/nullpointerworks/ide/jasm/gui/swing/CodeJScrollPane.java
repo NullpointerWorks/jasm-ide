@@ -2,6 +2,8 @@ package com.nullpointerworks.ide.jasm.gui.swing;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -11,7 +13,7 @@ import javax.swing.text.Element;
 
 import com.nullpointerworks.ide.jasm.gui.swing.highlight.*;
 
-public class CodeJScrollPane extends JScrollPane
+public class CodeJScrollPane extends JScrollPane implements KeyListener
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -29,16 +31,18 @@ public class CodeJScrollPane extends JScrollPane
 		lines.setCaret( new NoSelectCaret(lines) );
 		
 		jtp = new HighlightingJTextPane();
-		jtp.setBorder(null); // removes the margin from the pane, else it wont line of with the numbering
+		jtp.addKeyListener(this);
+		jtp.setBorder(null); // removes the margin from the pane, it wont line of with the numbering otherwise
 		jtp.setFont(font);
 		jtp.addHighlightValidator( new DeclarationHighlighter() );
 		jtp.addHighlightValidator( new InstructionHighlighter() );
 		jtp.addHighlightValidator( new RegisterHighlighter() );
 		jtp.addHighlightValidator( new NumberHighlighter() );
+		jtp.addHighlightValidator( new AddressHighlighter() );
 		jtp.addHighlightValidator( new DefaultHighlighter() );
 		jtp.getDocument().addDocumentListener(new DocumentListener()
 		{
-			public String getText()
+			private String getText()
 			{
 				int caretPosition = jtp.getDocument().getLength();
 				Element root = jtp.getDocument().getDefaultRootElement();
@@ -82,5 +86,17 @@ public class CodeJScrollPane extends JScrollPane
 	public void appendLine(String str) 
 	{
 		jtp.appendLine(str);
+	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {}
+	
+	@Override
+	public void keyPressed(KeyEvent e) {}
+	
+	@Override
+	public void keyReleased(KeyEvent e) 
+	{
+		System.out.println( ""+ e.getKeyCode() );
 	}
 }
