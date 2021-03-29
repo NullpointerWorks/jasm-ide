@@ -1,4 +1,4 @@
-package com.nullpointerworks.ide.jasm.view.gui;
+package com.nullpointerworks.ide.jasm.view;
 
 import java.awt.BorderLayout;
 
@@ -114,23 +114,9 @@ public class AssemblerView
 		/*
 		 * construct upper tab pane
 		 */
-		cjspCode = new CodeJScrollPane();
-		cjspCode.setSize(500, 300);
-		cjspCode.appendLine(".def EXIT 0");
-		cjspCode.appendLine(".def OUT_A 1");
-		cjspCode.appendLine("");
-		cjspCode.appendLine("main:");
-		cjspCode.appendLine("  load a,10");
-		cjspCode.appendLine("loop:");
-		cjspCode.appendLine("  dec a");
-		cjspCode.appendLine("  int OUT_A");
-		cjspCode.appendLine("  jne loop");
-		cjspCode.append("  int EXIT");
-		
 		jtpSourceTabs = new JTabbedPane();  
 		jtpSourceTabs.setSize(800,350);
 		jtpSourceTabs.setPreferredSize(jtpSourceTabs.getSize());
-		jtpSourceTabs.add("main.jasm", cjspCode);
 		
 		/*
 		 * construct lower tab pane
@@ -168,7 +154,25 @@ public class AssemblerView
 		jfWindow.pack();
 		jfWindow.validate();
 		jfWindow.setLocationRelativeTo(null);
+		
+		
+		
+
+		cjspCode = new CodeJScrollPane();
+		cjspCode.appendLine(".def EXIT 0");
+		cjspCode.appendLine(".def OUT_A 1");
+		cjspCode.appendLine("");
+		cjspCode.appendLine("main:");
+		cjspCode.appendLine("  load a,10");
+		cjspCode.appendLine("loop:");
+		cjspCode.appendLine("  int OUT_A");
+		cjspCode.appendLine("  dec a");
+		cjspCode.appendLine("  jne loop");
+		cjspCode.append("  int EXIT");
+		jtpSourceTabs.add("main.jasm", cjspCode);
 	}
+	
+	
 	
 	public void setVisible(boolean b)
 	{
