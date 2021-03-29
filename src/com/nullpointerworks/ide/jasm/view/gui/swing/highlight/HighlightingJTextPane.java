@@ -31,6 +31,7 @@ public class HighlightingJTextPane extends JTextPane
         highlights = new ArrayList<HighlightValidator>();
 		setFontFamily("Lucida Console", 12);
 		setTabSize(2);
+		setBorder(null); // removes the margin from the pane, it wont line of with the numbering otherwise
 		
 		keyListener = new KeyListener() // I prefer to keep anonymous classes as brief as possible
 		{
@@ -42,8 +43,6 @@ public class HighlightingJTextPane extends JTextPane
 			public void keyReleased(KeyEvent e) {parseKeyReleased(e);}
 		};
 		addKeyListener(keyListener);
-		
-		
 	}
 	
 	/**
@@ -187,10 +186,8 @@ public class HighlightingJTextPane extends JTextPane
 	
 	private void parseKeyReleased(KeyEvent e) 
 	{
-		if (e.getKeyChar() == KeyEvent.VK_ENTER) 
-		{
-			updateHighlight();
-        }
+		updateHighlight();
+		//if (e.getKeyChar() == KeyEvent.VK_ENTER) updateHighlight();
 	}
 	
 	private void highlightToken(int offset, String token) 

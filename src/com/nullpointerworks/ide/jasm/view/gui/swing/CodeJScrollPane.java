@@ -2,8 +2,6 @@ package com.nullpointerworks.ide.jasm.view.gui.swing;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -13,7 +11,7 @@ import javax.swing.text.Element;
 
 import com.nullpointerworks.ide.jasm.view.gui.swing.highlight.*;
 
-public class CodeJScrollPane extends JScrollPane implements KeyListener
+public class CodeJScrollPane extends JScrollPane
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -31,8 +29,6 @@ public class CodeJScrollPane extends JScrollPane implements KeyListener
 		lines.setCaret( new NoSelectCaret(lines) );
 		
 		jtp = new HighlightingJTextPane();
-		jtp.addKeyListener(this);
-		jtp.setBorder(null); // removes the margin from the pane, it wont line of with the numbering otherwise
 		jtp.setFont(font);
 		jtp.addHighlightValidator( new DeclarationHighlighter() );
 		jtp.addHighlightValidator( new InstructionHighlighter() );
@@ -86,17 +82,5 @@ public class CodeJScrollPane extends JScrollPane implements KeyListener
 	public void appendLine(String str) 
 	{
 		jtp.appendLine(str);
-	}
-	
-	@Override
-	public void keyTyped(KeyEvent e) {}
-	
-	@Override
-	public void keyPressed(KeyEvent e) {}
-	
-	@Override
-	public void keyReleased(KeyEvent e) 
-	{
-		System.out.println( ""+ e.getKeyCode() );
 	}
 }

@@ -33,6 +33,7 @@ public class AssemblerView
 	private JButton jbSaveAll;
 	private JButton jbAssemble;
 	private JButton jbRunVM;
+	private JButton jbBuildNRun;
 	
 	private JTextArea jtaConsoleOut;
 	
@@ -92,6 +93,14 @@ public class AssemblerView
 		jbRunVM.setSize(32, 32);
 		jbRunVM.setPreferredSize(jbRunVM.getSize());
 		
+		jbBuildNRun = new JButton(Resources.getBuildAndRunIcon() );
+		jbBuildNRun.setVerticalTextPosition(AbstractButton.BOTTOM);
+		jbBuildNRun.setHorizontalTextPosition(AbstractButton.CENTER);
+		jbBuildNRun.setToolTipText("Build and run the program.");
+		jbBuildNRun.setLocation(192, 0);
+		jbBuildNRun.setSize(32, 32);
+		jbBuildNRun.setPreferredSize(jbBuildNRun.getSize());
+		
 		jtbToolRibbon = new JToolBar();
 		jtbToolRibbon.add(jbNewFile);
 		jtbToolRibbon.add(jbOpenFile);
@@ -100,9 +109,7 @@ public class AssemblerView
 		jtbToolRibbon.addSeparator();
 		jtbToolRibbon.add(jbAssemble);
 		jtbToolRibbon.add(jbRunVM);
-		
-		
-		
+		jtbToolRibbon.add(jbBuildNRun);
 		
 		/*
 		 * construct upper tab pane
@@ -124,9 +131,6 @@ public class AssemblerView
 		jtpSourceTabs.setSize(800,350);
 		jtpSourceTabs.setPreferredSize(jtpSourceTabs.getSize());
 		jtpSourceTabs.add("main.jasm", cjspCode);
-		
-		
-		
 		
 		/*
 		 * construct lower tab pane
