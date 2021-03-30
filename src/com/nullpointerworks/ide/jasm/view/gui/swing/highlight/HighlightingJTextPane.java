@@ -164,7 +164,7 @@ public class HighlightingJTextPane extends JTextPane
 		{
 			e.consume();
 			int caret = getCaretPosition();
-			String text = getText().substring(0, caret+1);
+			String text = getText().substring(0, caret);//+1);
 			
 			int index = text.lastIndexOf("\n");
 			String segment = text.substring(index+1);

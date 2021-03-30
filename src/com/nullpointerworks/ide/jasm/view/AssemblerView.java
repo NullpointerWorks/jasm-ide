@@ -3,6 +3,8 @@ package com.nullpointerworks.ide.jasm.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -15,6 +17,8 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import com.nullpointerworks.ide.jasm.Resources;
+import com.nullpointerworks.ide.jasm.model.FileHandler;
+import com.nullpointerworks.ide.jasm.util.PathBuilder;
 import com.nullpointerworks.ide.jasm.view.gui.awt.AbsoluteLayout;
 import com.nullpointerworks.ide.jasm.view.gui.swing.CodeJScrollPane;
 import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableJTabbedPane;
@@ -24,10 +28,9 @@ public class AssemblerView
 {
 	private JFrame jfWindow;
 	private JPanel jpInterface;
-	private JToolBar jtbToolRibbon;
 	private JTabbedPane jtpSourceTabs;
 	private JTabbedPane jtpBottomTabs;
-
+	private JToolBar jtbToolRibbon;
 	private JButton jbNewFile;
 	private JButton jbOpenFile;
 	private JButton jbSaveFile;
@@ -36,14 +39,16 @@ public class AssemblerView
 	private JButton jbAssemble;
 	private JButton jbRunVM;
 	private JButton jbBuildNRun;
-	
 	private JTextArea jtaConsoleOut;
 	
-	
+	private List<FileHandler> fileHandlers;
 	
 	
 	public AssemblerView()
 	{
+		fileHandlers = new ArrayList<FileHandler>();
+		
+		
 		/*
 		 * tool ribbon
 		 */
@@ -168,13 +173,27 @@ public class AssemblerView
 		jfWindow.setLocationRelativeTo(null);
 	}
 	
+	public FileHandler createNewSourceFile(String sourcePath)
+	{
+		// create new default filename
+		PathBuilder path = getDefaultFileName(sourcePath);
+		path.fileName(path.fileName());
+		
+		// create handler
+		FileHandler fh = new FileHandler();
+		fh.setFilePath(path);
+		
+		// create new tab
+		CodeJScrollPane cjspCode = new CodeJScrollPane();
+		jtpSourceTabs.addTab(fh.getFileName(), Resources.getASMFileIcon(), cjspCode);
+		
+		// add handler and return current
+		fileHandlers.add(fh);
+		return fh;
+	}
+	
 	public void openSourceFile(File f)
 	{
-		
-		
-		
-		
-		
 		
 		
 		CodeJScrollPane cjspCode = new CodeJScrollPane();
@@ -190,6 +209,16 @@ public class AssemblerView
 		jtpSourceTabs.addTab("main.jasm", Resources.getASMFileIcon(), cjspCode);
 	}
 	
+	public void printToConsole(String str)
+	{
+		jtaConsoleOut.append(str+"\n");
+	}
+	
+	public void setNewButtonAction(ActionListener al)
+	{
+		jbNewFile.addActionListener(al);
+	}
+	
 	public void setOpenButtonAction(ActionListener al)
 	{
 		jbOpenFile.addActionListener(al);
@@ -198,5 +227,27 @@ public class AssemblerView
 	public void setVisible(boolean b)
 	{
 		jfWindow.setVisible(b);
+	}
+	
+	private PathBuilder getDefaultFileName(String sourcePath) 
+	{
+		boolean found = false;
+		String newFileName = "new_1.jasm";
+		int it = 1;
+		while (!found)
+		{
+			newFileName = "new_"+it+".jasm";
+			it++;
+			found = true;
+			for (FileHandler handle : fileHandlers)
+			{
+				if (handle.getFileName().equalsIgnoreCase(newFileName))
+				{
+					found = false;
+					break;
+				}
+			}
+		}
+		return new PathBuilder(sourcePath);
 	}
 }

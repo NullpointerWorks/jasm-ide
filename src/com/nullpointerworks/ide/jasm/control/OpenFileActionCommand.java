@@ -2,11 +2,11 @@ package com.nullpointerworks.ide.jasm.control;
 
 import com.nullpointerworks.ide.jasm.view.AssemblerView;
 
-public class OpenActionCommand implements ActionCommand
+public class OpenFileActionCommand implements ActionCommand
 {
 	private AssemblerView view;
 	
-	public OpenActionCommand(AssemblerView v)
+	public OpenFileActionCommand(AssemblerView v)
 	{
 		view = v;
 		
