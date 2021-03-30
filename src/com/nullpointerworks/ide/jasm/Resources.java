@@ -25,7 +25,8 @@ public final class Resources
 		"/com/nullpointerworks/ide/resources/tab_CloseActive.png",
 		"/com/nullpointerworks/ide/resources/tab_CloseIdle.png",
 		"/com/nullpointerworks/ide/resources/file_ASM.png",
-		"/com/nullpointerworks/ide/resources/btn_CNFG.png"
+		"/com/nullpointerworks/ide/resources/btn_CNFG.png",
+		"/com/nullpointerworks/ide/resources/btn_NEW_PROJ.png"
 	};
 	
 	public static ImageIcon getStreamedIcon(String path) 
@@ -88,4 +89,7 @@ public final class Resources
 	
 	public static ImageIcon getConfigIcon()
 	{return getStreamedIcon(iconsURL[14]);}
+	
+	public static ImageIcon getNewProjectIcon()
+	{return getStreamedIcon(iconsURL[15]);}
 }

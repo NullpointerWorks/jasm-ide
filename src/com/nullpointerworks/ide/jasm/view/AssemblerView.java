@@ -185,6 +185,7 @@ public class AssemblerView
 		
 		// create new tab
 		CodeJScrollPane cjspCode = new CodeJScrollPane();
+		
 		jtpSourceTabs.addTab(fh.getFileName(), Resources.getASMFileIcon(), cjspCode);
 		
 		// add handler and return current
@@ -248,6 +249,8 @@ public class AssemblerView
 				}
 			}
 		}
-		return new PathBuilder(sourcePath);
+		PathBuilder path = new PathBuilder(sourcePath);
+		path.fileName(newFileName);
+		return path;
 	}
 }

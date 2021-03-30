@@ -1,5 +1,6 @@
 package com.nullpointerworks.ide.jasm.control;
 
+import com.nullpointerworks.ide.jasm.model.FileHandler;
 import com.nullpointerworks.ide.jasm.view.AssemblerView;
 
 public class NewFileActionCommand implements ActionCommand
@@ -15,7 +16,7 @@ public class NewFileActionCommand implements ActionCommand
 	public void execute() 
 	{
 		
-		view.createNewSourceFile("src/com/nullpointerworks/ide/examples/");
+		FileHandler fh = view.createNewSourceFile("src/com/nullpointerworks/ide/examples/");
 		
 	}
 

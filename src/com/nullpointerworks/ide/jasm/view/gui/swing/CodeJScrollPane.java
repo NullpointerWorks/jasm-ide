@@ -36,7 +36,7 @@ public class CodeJScrollPane extends JScrollPane
 		jtp.addHighlightValidator( new NumberHighlighter() );
 		jtp.addHighlightValidator( new AddressHighlighter() );
 		jtp.addHighlightValidator( new DefaultHighlighter() );
-		jtp.getDocument().addDocumentListener(new DocumentListener()
+		addDocumentListener(new DocumentListener()
 		{
 			private String getText()
 			{
@@ -55,13 +55,13 @@ public class CodeJScrollPane extends JScrollPane
 			{
 				lines.setText(getText());
 			}
- 
+			
 			@Override
 			public void insertUpdate(DocumentEvent de) 
 			{
 				lines.setText(getText());
 			}
- 
+			
 			@Override
 			public void removeUpdate(DocumentEvent de) 
 			{
@@ -72,6 +72,11 @@ public class CodeJScrollPane extends JScrollPane
 		setViewportView(jtp);
 		setRowHeaderView(lines);
 		setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+	}
+	
+	public void addDocumentListener(DocumentListener dl)
+	{
+		jtp.getDocument().addDocumentListener(dl);
 	}
 	
 	public void append(String str) 
