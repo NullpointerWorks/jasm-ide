@@ -14,7 +14,7 @@ public final class Resources
 		"/com/nullpointerworks/ide/resources/IP.png", // instruction pointer arrow
 		"/com/nullpointerworks/ide/resources/SP.png", // stack pointer arrow
 		"/com/nullpointerworks/ide/resources/IPSP.png" ,// IP and SP combination
-		"/com/nullpointerworks/ide/resources/btn_NEW.png",
+		"/com/nullpointerworks/ide/resources/btn_NEW2.png",
 		"/com/nullpointerworks/ide/resources/btn_OPEN.png",
 		"/com/nullpointerworks/ide/resources/btn_SAVE.png",
 		"/com/nullpointerworks/ide/resources/btn_SAVEALL.png",
@@ -26,7 +26,8 @@ public final class Resources
 		"/com/nullpointerworks/ide/resources/tab_CloseIdle.png",
 		"/com/nullpointerworks/ide/resources/file_ASM.png",
 		"/com/nullpointerworks/ide/resources/btn_CNFG.png",
-		"/com/nullpointerworks/ide/resources/btn_NEW_PROJ.png"
+		"/com/nullpointerworks/ide/resources/btn_NEW_PROJ.png",
+		"/com/nullpointerworks/ide/resources/btn_SAVEAS.png"
 	};
 	
 	public static ImageIcon getStreamedIcon(String path) 
@@ -92,4 +93,7 @@ public final class Resources
 	
 	public static ImageIcon getNewProjectIcon()
 	{return getStreamedIcon(iconsURL[15]);}
+	
+	public static ImageIcon getSaveAsIcon()
+	{return getStreamedIcon(iconsURL[16]);}
 }
