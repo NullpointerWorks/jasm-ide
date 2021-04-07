@@ -26,7 +26,7 @@ public final class Resources
 		"/com/nullpointerworks/ide/resources/tab_CloseIdle.png",
 		"/com/nullpointerworks/ide/resources/file_ASM.png",
 		"/com/nullpointerworks/ide/resources/btn_CNFG.png",
-		"/com/nullpointerworks/ide/resources/btn_NEW_PROJ.png",
+		"/com/nullpointerworks/ide/resources/btn_NEW_PROJ2.png",
 		"/com/nullpointerworks/ide/resources/btn_SAVEAS.png"
 	};
 	

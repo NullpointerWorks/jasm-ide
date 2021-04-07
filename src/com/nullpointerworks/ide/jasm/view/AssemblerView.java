@@ -9,6 +9,9 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -30,6 +33,11 @@ public class AssemblerView
 	private JPanel jpInterface;
 	private JTabbedPane jtpSourceTabs;
 	private JTabbedPane jtpBottomTabs;
+	private JTextArea jtaConsoleOut;
+	
+	private JMenuBar jmbMenuBar;
+	private JMenuItem jmiNewFile;
+	
 	private JToolBar jtbToolRibbon;
 	private JButton jbNewFile;
 	private JButton jbOpenFile;
@@ -39,7 +47,7 @@ public class AssemblerView
 	private JButton jbAssemble;
 	private JButton jbRunVM;
 	private JButton jbBuildNRun;
-	private JTextArea jtaConsoleOut;
+	
 	
 	private List<FileHandler> fileHandlers;
 	
@@ -47,6 +55,18 @@ public class AssemblerView
 	public AssemblerView()
 	{
 		fileHandlers = new ArrayList<FileHandler>();
+		
+		/*
+		 * menu bar
+		 */
+		jmiNewFile = new JMenuItem("New File", Resources.getNewIcon() );
+		
+		
+		JMenu jmProgram = new JMenu("Menu");
+		jmProgram.add(jmiNewFile);
+		
+		jmbMenuBar = new JMenuBar();
+		jmbMenuBar.add(jmProgram);
 		
 		
 		/*
@@ -167,6 +187,7 @@ public class AssemblerView
 		jfWindow.setLayout( new AbsoluteLayout() );
 		jfWindow.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		jfWindow.setResizable(false);
+		jfWindow.setJMenuBar(jmbMenuBar);
 		jfWindow.add(jpInterface);
 		jfWindow.pack();
 		jfWindow.validate();
