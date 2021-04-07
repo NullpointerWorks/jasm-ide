@@ -22,7 +22,7 @@ public class MainAssemblerIDE
 		ActionCommand acNewButton = new NewFileActionCommand(asmView);
 		ActionCommand acOpenButton = new OpenFileActionCommand(asmView);
 		
-		asmView.setNewButtonAction(acNewButton);
+		asmView.setNewFileButtonAction(acNewButton);
 		asmView.setOpenButtonAction(acOpenButton);
 		asmView.setVisible(true);
 		

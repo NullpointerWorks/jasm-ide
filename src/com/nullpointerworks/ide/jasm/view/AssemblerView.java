@@ -37,6 +37,7 @@ public class AssemblerView
 	
 	private JMenuBar jmbMenuBar;
 	private JMenuItem jmiNewFile;
+	private JMenuItem jmiNewProj;
 	
 	private JToolBar jtbToolRibbon;
 	private JButton jbNewFile;
@@ -48,9 +49,7 @@ public class AssemblerView
 	private JButton jbRunVM;
 	private JButton jbBuildNRun;
 	
-	
 	private List<FileHandler> fileHandlers;
-	
 	
 	public AssemblerView()
 	{
@@ -59,11 +58,20 @@ public class AssemblerView
 		/*
 		 * menu bar
 		 */
-		jmiNewFile = new JMenuItem("New File", Resources.getNewIcon() );
+		jmiNewProj = new JMenuItem("Project", Resources.getNewProjectIcon() );
+		jmiNewFile = new JMenuItem("File", Resources.getNewIcon() );
 		
+		
+		
+		
+		
+		JMenu jmNew = new JMenu("New");
+		jmNew.add(jmiNewProj);
+		jmNew.addSeparator();
+		jmNew.add(jmiNewFile);
 		
 		JMenu jmProgram = new JMenu("Menu");
-		jmProgram.add(jmiNewFile);
+		jmProgram.add(jmNew);
 		
 		jmbMenuBar = new JMenuBar();
 		jmbMenuBar.add(jmProgram);
@@ -236,9 +244,10 @@ public class AssemblerView
 		jtaConsoleOut.append(str+"\n");
 	}
 	
-	public void setNewButtonAction(ActionListener al)
+	public void setNewFileButtonAction(ActionListener al)
 	{
 		jbNewFile.addActionListener(al);
+		jmiNewFile.addActionListener(al);
 	}
 	
 	public void setOpenButtonAction(ActionListener al)

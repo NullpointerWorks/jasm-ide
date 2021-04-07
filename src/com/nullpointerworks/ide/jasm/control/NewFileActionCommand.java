@@ -15,7 +15,6 @@ public class NewFileActionCommand implements ActionCommand
 	@Override
 	public void execute() 
 	{
-		
 		FileHandler fh = view.createNewSourceFile("src/com/nullpointerworks/ide/examples/");
 		
 	}
