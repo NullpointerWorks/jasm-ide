@@ -1,6 +1,7 @@
 package com.nullpointerworks.ide.jasm.view.gui.swing;
 
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class UILookAndFeel 
@@ -16,8 +17,9 @@ public class UILookAndFeel
 	public static final String NIMBUS 	= "javax.swing.plaf.nimbus.NimbusLookAndFeel";
 	
 	public static final String MOTIF 	= "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
-	
-	public static final String WINDOWS 	= "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+
+	public static final String WINDOWS 			= "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+	public static final String WINDOWS_CLASSIC 	= "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel";
 	
 	/**
 	 * Set the pluggable look and feel (plaf)
@@ -35,5 +37,13 @@ public class UILookAndFeel
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public static void getInstalledLookAndFeel()
+	{
+		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) 
+		{
+			System.out.println( "Installed LAF: "+info.getClassName() );
+	    }
 	}
 }

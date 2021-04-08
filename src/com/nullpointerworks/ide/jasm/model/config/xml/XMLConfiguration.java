@@ -1,5 +1,8 @@
 package com.nullpointerworks.ide.jasm.model.config.xml;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.nullpointerworks.ide.jasm.model.config.Configuration;
 import com.nullpointerworks.ide.jasm.util.PathBuilder;
 import com.nullpointerworks.ide.jasm.util.XMLLoader;
@@ -15,17 +18,16 @@ import exp.nullpointerworks.xml.prolog.XMLProlog;
  */
 public class XMLConfiguration extends XMLLoader implements Configuration
 {
-	private static XMLConfiguration inst = new XMLConfiguration();
-	public static XMLConfiguration getInstance() {return inst;}
-	private XMLConfiguration() {}
-	
+	private List<ConfigItem> items;
 	private Document doc = null;
 	private Element root = null;
 	
-	public Configuration load(PathBuilder app_url)
+	public XMLConfiguration(PathBuilder app_url)
 	{
-		PathBuilder cnf = app_url.copy().fileName("config.xml");
+		items = new ArrayList<ConfigItem>();
+		items.add( new RecentlyOpenedConfig() );
 		
+		PathBuilder cnf = app_url.copy().fileName("config.xml");
 		if (!existsXML(cnf))
 		{
 			doc = makeDefault(cnf);
@@ -34,19 +36,16 @@ public class XMLConfiguration extends XMLLoader implements Configuration
 		{
 			doc = verifyFile(cnf);
 		}
-		
 		root = doc.getRootElement();
-		
-		return this;
 	}
 	
 	// ===================================================================
 	
-	public String getWatchDirectory() 
-	{
-		Element scanroot = root.getChild("ScanRoot");
-		return scanroot.getText();
-	}
+	
+	
+	
+	
+	
 	
 	// ===================================================================
 	
@@ -63,18 +62,20 @@ public class XMLConfiguration extends XMLLoader implements Configuration
 	private Element makeDefaultRoot(String path)
 	{
 		Element root = new Element("Configuration");
-		//root.addChild( new Element("ScanRoot").setText( path+"scan/" ) );
+		for (ConfigItem item : items)
+		{
+			root.addChild( item.make() );
+		}
 		return root;
 	}
+	
+	// ===================================================================
 	
 	private Document verifyFile(PathBuilder cnf)
 	{
 		doc = loadXML(cnf);
 		root = doc.getRootElement();
 		
-		/*
-		 * create default if root is missing
-		 */
 		if (root == null)
 		{
 			Element root = makeDefaultRoot(cnf.folderPath());
@@ -82,32 +83,14 @@ public class XMLConfiguration extends XMLLoader implements Configuration
 			doc.setRootElement(root);
 		}
 		else
-		/*
-		 * check current config value for validity
-		 */
 		{
-			//checkPathData(root, "ScanRoot", "scan/");
+			for (ConfigItem item : items)
+			{
+				item.verify(root);
+			}
 		}
 		
 		saveXML(doc,cnf);
 		return doc;
-	}
-	
-	private void checkPathData(Element root, String elName, String defaultString)
-	{
-		Element scanroot = root.getChild(elName);
-		if (scanroot==null) 
-		{
-			root.addChild( new Element(elName).setText(defaultString) );
-		}
-		else 
-		{
-			String txt = scanroot.getText();
-			txt=txt.replace("\\", "/");
-			if (!txt.endsWith("/"))
-			{
-				scanroot.setText(txt+"/");
-			}
-		}
 	}
 }

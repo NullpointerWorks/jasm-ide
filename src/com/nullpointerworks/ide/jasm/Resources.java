@@ -3,6 +3,8 @@ package com.nullpointerworks.ide.jasm;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -30,8 +32,15 @@ public final class Resources
 		"/com/nullpointerworks/ide/resources/btn_SAVEAS.png"
 	};
 	
+	private static Map<String, ImageIcon> flyweight = new HashMap<String, ImageIcon>();
+	
 	public static ImageIcon getStreamedIcon(String path) 
 	{
+		if (flyweight.containsKey(path))
+		{
+			return flyweight.get(path);
+		}
+		
 		InputStream is = Loader.getResourceAsStream(path);
         BufferedImage img = null;
 		try 
@@ -43,7 +52,10 @@ public final class Resources
 			e.printStackTrace();
 		}
 		if (img==null) return null;
-		return new ImageIcon(img);
+		
+		ImageIcon ico = new ImageIcon(img);
+		flyweight.put(path, ico);
+		return ico;
 	}
 	
 	public static ImageIcon getIPIcon()

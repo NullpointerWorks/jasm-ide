@@ -44,19 +44,9 @@ public class ClosableJTabbedPane extends JTabbedPane
 		listeners.remove(ctl);
 	}
 	
-	@Override
-	public Component add(Component comp)
+	public void addTab(JLabel title, Icon icon, Component comp)
 	{
-		return add(comp.getName(), comp);
-	}
-
-	@Override
-	public void addTab(String title, Icon icon, Component comp)
-	{
-		if (tracking.contains(comp)) return;
-		tracking.add(comp);
-		super.addTab(title, icon, comp);
-		
+		add(comp);
 		int index = indexOfComponent(comp);
 		if (index < 0) return;
 		
@@ -70,6 +60,18 @@ public class ClosableJTabbedPane extends JTabbedPane
 	}
 	
 	@Override
+	public void addTab(String title, Icon icon, Component comp)
+	{
+		addTab(new JLabel(title), icon, comp);
+	}
+	
+	@Override
+	public Component add(Component comp)
+	{
+		return add(comp.getName(), comp);
+	}
+	
+	@Override
 	public Component add(String title, Component comp)
 	{
 		if (tracking.contains(comp)) return comp;
@@ -78,7 +80,7 @@ public class ClosableJTabbedPane extends JTabbedPane
 		
 		int index = indexOfComponent(comp);
 		if (index < 0) return comp;
-		JPanel panel = getClosablePanel(this, null, comp, title);
+		JPanel panel = getClosablePanel(this, null, comp, new JLabel(title) );
 		setTabComponentAt( index, panel );
 		
 		for (ClosableTabListener ctl : listeners)
@@ -100,14 +102,14 @@ public class ClosableJTabbedPane extends JTabbedPane
 	private final int IDLE = 0;
 	private final int ACTIVE = 1;
 	
-	private JPanel getClosablePanel(JTabbedPane parent, Icon icon, final Component comp, String title) 
+	private JPanel getClosablePanel(JTabbedPane parent, Icon icon, final Component comp, JLabel title) 
 	{
 		JPanel titlePanel = new JPanel();
 		titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		titlePanel.setOpaque(false);
 		
-		JLabel titleLbl = new JLabel(" "+title+" ");
-		titleLbl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 4));
+		title.setText(" "+title.getText()+" ");
+		title.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 4));
 		
 		JButton closeButton = new JButton();
 		closeButton.setSize(10, 16);
@@ -148,7 +150,7 @@ public class ClosableJTabbedPane extends JTabbedPane
 	    });
 		
 		if (icon!=null)titlePanel.add(new JLabel(icon));
-		titlePanel.add(titleLbl);
+		titlePanel.add(title);
 		titlePanel.add(closeButton);
 		return titlePanel;
 	}

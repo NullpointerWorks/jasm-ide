@@ -3,8 +3,6 @@ package com.nullpointerworks.ide.jasm.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -20,24 +18,29 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import com.nullpointerworks.ide.jasm.Resources;
-import com.nullpointerworks.ide.jasm.model.FileHandler;
-import com.nullpointerworks.ide.jasm.util.PathBuilder;
 import com.nullpointerworks.ide.jasm.view.gui.awt.AbsoluteLayout;
 import com.nullpointerworks.ide.jasm.view.gui.swing.CodeJScrollPane;
 import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableJTabbedPane;
+import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableTabListener;
 import com.nullpointerworks.ide.jasm.view.gui.swing.JTextAreaScrollPane;
 
 public class AssemblerView
 {
 	private JFrame jfWindow;
 	private JPanel jpInterface;
-	private JTabbedPane jtpSourceTabs;
+	private ClosableJTabbedPane jtpSourceTabs;
 	private JTabbedPane jtpBottomTabs;
 	private JTextArea jtaConsoleOut;
 	
 	private JMenuBar jmbMenuBar;
 	private JMenuItem jmiNewFile;
 	private JMenuItem jmiNewProj;
+	private JMenuItem jmiOpenFile;
+	private JMenuItem jmiSave;
+	private JMenuItem jmiSaveAs;
+	private JMenuItem jmiSaveAll;
+	private JMenuItem jmiExit;
+	private JMenuItem jmiClearHistory;
 	
 	private JToolBar jtbToolRibbon;
 	private JButton jbNewFile;
@@ -49,33 +52,43 @@ public class AssemblerView
 	private JButton jbRunVM;
 	private JButton jbBuildNRun;
 	
-	private List<FileHandler> fileHandlers;
-	
 	public AssemblerView()
 	{
-		fileHandlers = new ArrayList<FileHandler>();
-		
 		/*
 		 * menu bar
 		 */
 		jmiNewProj = new JMenuItem("Project", Resources.getNewProjectIcon() );
 		jmiNewFile = new JMenuItem("File", Resources.getNewIcon() );
-		
-		
-		
-		
+		jmiOpenFile = new JMenuItem("Open", Resources.getOpenIcon() );
+		jmiSave = new JMenuItem("Save", Resources.getSaveIcon() );
+		jmiSaveAs = new JMenuItem("Save As...", Resources.getSaveAsIcon() );
+		jmiSaveAll = new JMenuItem("Save All", Resources.getSaveAllIcon() );
+		jmiExit = new JMenuItem("Exit" );
+		jmiClearHistory = new JMenuItem("Clear History" );
 		
 		JMenu jmNew = new JMenu("New");
+		jmNew.setLocation(5, 0);
 		jmNew.add(jmiNewProj);
 		jmNew.addSeparator();
 		jmNew.add(jmiNewFile);
 		
-		JMenu jmProgram = new JMenu("Menu");
+		JMenu jmRecent = new JMenu("Recent");
+		jmRecent.addSeparator();
+		jmRecent.add(jmiClearHistory);
+		
+		JMenu jmProgram = new JMenu("File");
 		jmProgram.add(jmNew);
+		jmProgram.add(jmiOpenFile);
+		jmProgram.add(jmRecent);
+		jmProgram.addSeparator();
+		jmProgram.add(jmiSave);
+		jmProgram.add(jmiSaveAs);
+		jmProgram.add(jmiSaveAll);
+		jmProgram.addSeparator();
+		jmProgram.add(jmiExit);
 		
 		jmbMenuBar = new JMenuBar();
 		jmbMenuBar.add(jmProgram);
-		
 		
 		/*
 		 * tool ribbon
@@ -202,30 +215,15 @@ public class AssemblerView
 		jfWindow.setLocationRelativeTo(null);
 	}
 	
-	public FileHandler createNewSourceFile(String sourcePath)
+	public void createNewSourceFile(String filename, ClosableTabListener ctl)
 	{
-		// create new default filename
-		PathBuilder path = getDefaultFileName(sourcePath);
-		path.fileName(path.fileName());
-		
-		// create handler
-		FileHandler fh = new FileHandler();
-		fh.setFilePath(path);
-		
-		// create new tab
 		CodeJScrollPane cjspCode = new CodeJScrollPane();
-		
-		jtpSourceTabs.addTab(fh.getFileName(), Resources.getASMFileIcon(), cjspCode);
-		
-		// add handler and return current
-		fileHandlers.add(fh);
-		return fh;
+		jtpSourceTabs.addClosableTabListener(ctl);
+		jtpSourceTabs.addTab(filename, Resources.getASMFileIcon(), cjspCode);
 	}
 	
 	public void openSourceFile(File f)
 	{
-		
-		
 		CodeJScrollPane cjspCode = new CodeJScrollPane();
 		cjspCode.appendLine(".def EXIT 0");
 		cjspCode.appendLine(".def PRINT_A 1");
@@ -244,6 +242,11 @@ public class AssemblerView
 		jtaConsoleOut.append(str+"\n");
 	}
 	
+	public void setVisible(boolean b)
+	{
+		jfWindow.setVisible(b);
+	}
+	
 	public void setNewFileButtonAction(ActionListener al)
 	{
 		jbNewFile.addActionListener(al);
@@ -253,34 +256,6 @@ public class AssemblerView
 	public void setOpenButtonAction(ActionListener al)
 	{
 		jbOpenFile.addActionListener(al);
-	}
-	
-	public void setVisible(boolean b)
-	{
-		jfWindow.setVisible(b);
-	}
-	
-	private PathBuilder getDefaultFileName(String sourcePath) 
-	{
-		boolean found = false;
-		String newFileName = "new_1.jasm";
-		int it = 1;
-		while (!found)
-		{
-			newFileName = "new_"+it+".jasm";
-			it++;
-			found = true;
-			for (FileHandler handle : fileHandlers)
-			{
-				if (handle.getFileName().equalsIgnoreCase(newFileName))
-				{
-					found = false;
-					break;
-				}
-			}
-		}
-		PathBuilder path = new PathBuilder(sourcePath);
-		path.fileName(newFileName);
-		return path;
+		jmiOpenFile.addActionListener(al);
 	}
 }

@@ -22,11 +22,12 @@ public class CodeJScrollPane extends JScrollPane
 	{
 		Font font = new Font("Lucida Console", Font.PLAIN, 12);
 		
-		lines = new JTextArea("1 ");
+		lines = new JTextArea(" 1 ");
 		lines.setBackground(Color.LIGHT_GRAY);
 		lines.setEditable(false);
 		lines.setFont(font);
 		lines.setCaret( new NoSelectCaret(lines) );
+		lines.setBorder(null);
 		
 		jtp = new HighlightingJTextPane();
 		jtp.setFont(font);
@@ -42,10 +43,10 @@ public class CodeJScrollPane extends JScrollPane
 			{
 				int caretPosition = jtp.getDocument().getLength();
 				Element root = jtp.getDocument().getDefaultRootElement();
-				String text = "1 " + System.getProperty("line.separator");
+				String text = " 1 " + System.getProperty("line.separator");
 				for(int i = 2; i < root.getElementIndex( caretPosition ) + 2; i++)
 				{
-					text += i + " " + System.getProperty("line.separator");
+					text += (" " + i + " " + System.getProperty("line.separator"));
 				}
 				return text;
 			}
@@ -53,19 +54,19 @@ public class CodeJScrollPane extends JScrollPane
 			@Override
 			public void changedUpdate(DocumentEvent de) 
 			{
-				lines.setText(getText());
+				setLineText(getText());
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent de) 
 			{
-				lines.setText(getText());
+				setLineText(getText());
 			}
 			
 			@Override
 			public void removeUpdate(DocumentEvent de) 
 			{
-				lines.setText(getText());
+				setLineText(getText());
 			}
 		});
 		
@@ -87,5 +88,10 @@ public class CodeJScrollPane extends JScrollPane
 	public void appendLine(String str) 
 	{
 		jtp.appendLine(str);
+	}
+	
+	private void setLineText(String text)
+	{
+		lines.setText(text);
 	}
 }
