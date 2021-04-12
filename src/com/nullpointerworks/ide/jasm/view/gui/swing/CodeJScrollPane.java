@@ -58,21 +58,21 @@ public class CodeJScrollPane extends JScrollPane
 			@Override
 			public void changedUpdate(DocumentEvent de) 
 			{
-				for (EditorListener ctl : listeners) ctl.onModification();
+				onModification();
 				setLineText(getText());
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent de) 
 			{
-				for (EditorListener ctl : listeners) ctl.onModification();
+				onModification();
 				setLineText(getText());
 			}
 			
 			@Override
 			public void removeUpdate(DocumentEvent de) 
 			{
-				for (EditorListener ctl : listeners) ctl.onModification();
+				onModification();
 				setLineText(getText());
 			}
 		});
@@ -80,6 +80,14 @@ public class CodeJScrollPane extends JScrollPane
 		setViewportView(jtp);
 		setRowHeaderView(lines);
 		setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+	}
+	
+	private void onModification()
+	{
+		for (EditorListener ctl : listeners) 
+		{
+			ctl.onModification();
+		}
 	}
 
 	public void addEditorListener(EditorListener ctl) 

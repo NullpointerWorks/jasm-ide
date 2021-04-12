@@ -1,13 +1,12 @@
 package com.nullpointerworks.ide.jasm.control;
 
-import java.awt.Component;
-
 import javax.swing.JTabbedPane;
 
 import com.nullpointerworks.ide.jasm.model.FileHandler;
 import com.nullpointerworks.ide.jasm.model.FileHandlerPool;
 import com.nullpointerworks.ide.jasm.util.PathBuilder;
 import com.nullpointerworks.ide.jasm.view.AssemblerView;
+import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableTabHeader;
 import com.nullpointerworks.ide.jasm.view.gui.swing.EditorListener;
 
 public class NewFileActionCommand implements ActionCommand, EditorListener
@@ -38,18 +37,18 @@ public class NewFileActionCommand implements ActionCommand, EditorListener
 	}
 	
 	@Override
-	public void onTabOpening(JTabbedPane parent, Component child) 
+	public void onTabOpening(JTabbedPane parent, ClosableTabHeader child) 
 	{
 		
-		System.out.println("tab opened");
+		System.out.println("tab opened: "+child.getTitle());
 		
 	}
 	
 	@Override
-	public void onTabClosing(JTabbedPane parent, Component child) 
+	public void onTabClosing(JTabbedPane parent, ClosableTabHeader child) 
 	{
 		
-		System.out.println("tab closed");
+		System.out.println("tab closed: "+child.getTitle());
 		
 	}
 

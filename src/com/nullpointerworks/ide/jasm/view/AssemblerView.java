@@ -21,6 +21,7 @@ import com.nullpointerworks.ide.jasm.Resources;
 import com.nullpointerworks.ide.jasm.view.gui.awt.AbsoluteLayout;
 import com.nullpointerworks.ide.jasm.view.gui.swing.CodeJScrollPane;
 import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableJTabbedPane;
+import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableTabHeader;
 import com.nullpointerworks.ide.jasm.view.gui.swing.EditorListener;
 import com.nullpointerworks.ide.jasm.view.gui.swing.JTextAreaScrollPane;
 
@@ -220,7 +221,10 @@ public class AssemblerView
 		CodeJScrollPane cjspCode = new CodeJScrollPane();
 		cjspCode.addEditorListener(ctl);
 		jtpSourceTabs.addEditorListener(ctl);
-		jtpSourceTabs.addTab(filename, Resources.getASMFileIcon(), cjspCode);
+		ClosableTabHeader tab = jtpSourceTabs.addClosableTab(filename, Resources.getASMFileIcon(), cjspCode);
+		
+		
+		
 	}
 	
 	public void openSourceFile(File f)

@@ -19,7 +19,7 @@ import javax.swing.event.ChangeListener;
 
 import com.nullpointerworks.ide.jasm.Resources;
 
-public class ClosableJPanel extends JPanel
+public class ClosableTabHeader extends JPanel
 {
 	private static final long serialVersionUID = -73302653717502663L;
 	
@@ -31,17 +31,20 @@ public class ClosableJPanel extends JPanel
 	private final int IDLE = 0;
 	private final int ACTIVE = 1;
 	private List<EditorListener> listeners;
+	private JLabel pretitle;
+	private JLabel title;
 	
-	public ClosableJPanel(ClosableJTabbedPane parent, JLabel title, final Component comp, Icon icon)
+	public ClosableTabHeader(ClosableJTabbedPane parent, String name, final Component comp, Icon icon)
 	{
 		listeners = new ArrayList<EditorListener>();
 		
-		JPanel localRerefence = this;
+		pretitle = new JLabel("");
+		title = new JLabel(" "+name+" ");
+		title.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 4));
+		
+		ClosableTabHeader localRerefence = this;
 		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		setOpaque(false);
-		
-		title.setText(" "+title.getText()+" ");
-		title.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 4));
 		
 		JButton closeButton = new JButton();
 		closeButton.setSize(10, 16);
@@ -81,6 +84,7 @@ public class ClosableJPanel extends JPanel
 	    });
 		
 		if (icon!=null)add(new JLabel(icon));
+		add(pretitle);
 		add(title);
 		add(closeButton);
 	}
@@ -95,8 +99,22 @@ public class ClosableJPanel extends JPanel
 		if (listeners.contains(ctl)) listeners.remove(ctl);
 	}
 	
+	public void setPreTitle(String txt)
+	{
+		pretitle.setText(txt);
+		this.repaint();
+	}
 	
+	public void setTitle(String txt)
+	{
+		title.setText(txt);
+		this.repaint();
+	}
 	
+	public String getTitle()
+	{
+		return title.getText();
+	}
 	
 	
 	

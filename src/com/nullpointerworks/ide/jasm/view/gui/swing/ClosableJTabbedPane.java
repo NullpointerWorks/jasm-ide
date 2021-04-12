@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Icon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -33,20 +32,21 @@ public class ClosableJTabbedPane extends JTabbedPane
 		if (listeners.contains(ctl)) listeners.remove(ctl);
 	}
 	
-	public void addTab(JLabel title, Icon icon, Component comp)
+	public ClosableTabHeader addClosableTab(String title, Icon icon, Component comp)
 	{
 		add(comp);
 		int index = indexOfComponent(comp);
-		if (index < 0) return;
+		if (index < 0) return null;
 		
-		JPanel panel = getClosablePanel(this, icon, comp, title);
+		ClosableTabHeader panel = getClosablePanel(this, icon, comp, title );
 		setTabComponentAt( index, panel );
+		return panel;
 	}
 	
 	@Override
 	public void addTab(String title, Icon icon, Component comp)
 	{
-		addTab(new JLabel(title), icon, comp);
+		addClosableTab(title, icon, comp);
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class ClosableJTabbedPane extends JTabbedPane
 		
 		int index = indexOfComponent(comp);
 		if (index < 0) return comp;
-		JPanel panel = getClosablePanel(this, null, comp, new JLabel(title) );
+		ClosableTabHeader panel = getClosablePanel(this, null, comp, title );
 		setTabComponentAt( index, panel );
 		
 		for (EditorListener ctl : listeners)
@@ -75,9 +75,9 @@ public class ClosableJTabbedPane extends JTabbedPane
 		return comp;
 	}
 	
-	private JPanel getClosablePanel(ClosableJTabbedPane parent, Icon icon, final Component comp, JLabel title) 
+	private ClosableTabHeader getClosablePanel(ClosableJTabbedPane parent, Icon icon, final Component comp, String title) 
 	{
-		ClosableJPanel panel  = new ClosableJPanel(parent, title, comp, icon);
+		ClosableTabHeader panel  = new ClosableTabHeader(parent, title, comp, icon);
 		for (EditorListener ctl : listeners)
 		{
 			panel.addEditorListener(ctl);
