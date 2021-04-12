@@ -21,7 +21,7 @@ import com.nullpointerworks.ide.jasm.Resources;
 import com.nullpointerworks.ide.jasm.view.gui.awt.AbsoluteLayout;
 import com.nullpointerworks.ide.jasm.view.gui.swing.CodeJScrollPane;
 import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableJTabbedPane;
-import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableTabListener;
+import com.nullpointerworks.ide.jasm.view.gui.swing.EditorListener;
 import com.nullpointerworks.ide.jasm.view.gui.swing.JTextAreaScrollPane;
 
 public class AssemblerView
@@ -215,15 +215,17 @@ public class AssemblerView
 		jfWindow.setLocationRelativeTo(null);
 	}
 	
-	public void createNewSourceFile(String filename, ClosableTabListener ctl)
+	public void createNewSourceFile(String filename, EditorListener ctl)
 	{
 		CodeJScrollPane cjspCode = new CodeJScrollPane();
-		jtpSourceTabs.addClosableTabListener(ctl);
+		cjspCode.addEditorListener(ctl);
+		jtpSourceTabs.addEditorListener(ctl);
 		jtpSourceTabs.addTab(filename, Resources.getASMFileIcon(), cjspCode);
 	}
 	
 	public void openSourceFile(File f)
 	{
+		/*
 		CodeJScrollPane cjspCode = new CodeJScrollPane();
 		cjspCode.appendLine(".def EXIT 0");
 		cjspCode.appendLine(".def PRINT_A 1");
@@ -235,6 +237,7 @@ public class AssemblerView
 		cjspCode.appendLine("  jne loop");
 		cjspCode.append("  int EXIT");
 		jtpSourceTabs.addTab("main.jasm", Resources.getASMFileIcon(), cjspCode);
+		//*/
 	}
 	
 	public void printToConsole(String str)

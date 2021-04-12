@@ -24,24 +24,24 @@ public class ClosableJTabbedPane extends JTabbedPane
 {
 	private static final long serialVersionUID = -8498443122815430449L;
 	
-	private List<ClosableTabListener> listeners;
+	private List<EditorListener> listeners;
 	private List<Component> tracking;
 	
 	public ClosableJTabbedPane()
 	{
 		super();
-		listeners = new ArrayList<ClosableTabListener>();
+		listeners = new ArrayList<EditorListener>();
 		tracking = new ArrayList<Component>();
 	}
 	
-	public void addClosableTabListener(ClosableTabListener ctl)
+	public void addEditorListener(EditorListener ctl)
 	{
-		listeners.add(ctl);
+		if (!listeners.contains(ctl)) listeners.add(ctl);
 	}
 	
-	public void removeClosableTabListener(ClosableTabListener ctl)
+	public void removeEditorListener(EditorListener ctl)
 	{
-		listeners.remove(ctl);
+		if (listeners.contains(ctl)) listeners.remove(ctl);
 	}
 	
 	public void addTab(JLabel title, Icon icon, Component comp)
@@ -52,11 +52,6 @@ public class ClosableJTabbedPane extends JTabbedPane
 		
 		JPanel panel = getClosablePanel(this, icon, comp, title);
 		setTabComponentAt( index, panel );
-		
-		for (ClosableTabListener ctl : listeners)
-		{
-			ctl.onTabOpening(this, panel);
-		}
 	}
 	
 	@Override
@@ -83,7 +78,7 @@ public class ClosableJTabbedPane extends JTabbedPane
 		JPanel panel = getClosablePanel(this, null, comp, new JLabel(title) );
 		setTabComponentAt( index, panel );
 		
-		for (ClosableTabListener ctl : listeners)
+		for (EditorListener ctl : listeners)
 		{
 			ctl.onTabOpening(this, panel);
 		}
@@ -124,7 +119,7 @@ public class ClosableJTabbedPane extends JTabbedPane
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				for (ClosableTabListener ctl : listeners)
+				for (EditorListener ctl : listeners)
 				{
 					ctl.onTabClosing(parent, titlePanel);
 				}

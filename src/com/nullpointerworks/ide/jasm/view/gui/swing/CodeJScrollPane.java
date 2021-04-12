@@ -2,6 +2,8 @@ package com.nullpointerworks.ide.jasm.view.gui.swing;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -14,13 +16,15 @@ import com.nullpointerworks.ide.jasm.view.gui.swing.highlight.*;
 public class CodeJScrollPane extends JScrollPane
 {
 	private static final long serialVersionUID = 1L;
-	
+
+	private List<EditorListener> listeners;
 	private JTextArea lines;
 	private HighlightingJTextPane jtp;
 	
 	public CodeJScrollPane()
 	{
 		Font font = new Font("Lucida Console", Font.PLAIN, 12);
+		listeners = new ArrayList<EditorListener>();
 		
 		lines = new JTextArea(" 1 ");
 		lines.setBackground(Color.LIGHT_GRAY);
@@ -54,18 +58,21 @@ public class CodeJScrollPane extends JScrollPane
 			@Override
 			public void changedUpdate(DocumentEvent de) 
 			{
+				for (EditorListener ctl : listeners) ctl.onModification();
 				setLineText(getText());
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent de) 
 			{
+				for (EditorListener ctl : listeners) ctl.onModification();
 				setLineText(getText());
 			}
 			
 			@Override
 			public void removeUpdate(DocumentEvent de) 
 			{
+				for (EditorListener ctl : listeners) ctl.onModification();
 				setLineText(getText());
 			}
 		});
@@ -74,8 +81,13 @@ public class CodeJScrollPane extends JScrollPane
 		setRowHeaderView(lines);
 		setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 	}
+
+	public void addEditorListener(EditorListener ctl) 
+	{
+		if (!listeners.contains(ctl)) listeners.add(ctl);
+	}
 	
-	public void addDocumentListener(DocumentListener dl)
+	private void addDocumentListener(DocumentListener dl)
 	{
 		jtp.getDocument().addDocumentListener(dl);
 	}
