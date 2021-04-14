@@ -11,6 +11,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Element;
 
+import com.nullpointerworks.ide.jasm.control.EditorListener;
 import com.nullpointerworks.ide.jasm.view.gui.swing.highlight.*;
 
 public class CodeJScrollPane extends JScrollPane

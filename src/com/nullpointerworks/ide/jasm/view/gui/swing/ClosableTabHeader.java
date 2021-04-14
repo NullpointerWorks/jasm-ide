@@ -18,6 +18,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.nullpointerworks.ide.jasm.Resources;
+import com.nullpointerworks.ide.jasm.control.EditorListener;
 
 public class ClosableTabHeader extends JPanel
 {

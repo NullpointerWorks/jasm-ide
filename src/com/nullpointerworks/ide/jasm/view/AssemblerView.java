@@ -18,11 +18,11 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import com.nullpointerworks.ide.jasm.Resources;
+import com.nullpointerworks.ide.jasm.control.EditorListener;
 import com.nullpointerworks.ide.jasm.view.gui.awt.AbsoluteLayout;
 import com.nullpointerworks.ide.jasm.view.gui.swing.CodeJScrollPane;
 import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableJTabbedPane;
 import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableTabHeader;
-import com.nullpointerworks.ide.jasm.view.gui.swing.EditorListener;
 import com.nullpointerworks.ide.jasm.view.gui.swing.JTextAreaScrollPane;
 
 public class AssemblerView
@@ -223,6 +223,10 @@ public class AssemblerView
 		
 		cjspCode.addEditorListener(ctl); // listen to text modification
 		tab.addEditorListener(ctl); // listen to the tab opening or closing
+		
+		
+		
+		
 		
 		ctl.onTabHeaderLink(tab); // pass a reference of the tab
 		ctl.onTabOpening(); // trigger a "tab open" event
