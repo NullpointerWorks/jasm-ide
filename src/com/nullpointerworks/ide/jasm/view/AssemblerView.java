@@ -219,12 +219,13 @@ public class AssemblerView
 	public void createNewSourceFile(String filename, EditorListener ctl)
 	{
 		CodeJScrollPane cjspCode = new CodeJScrollPane();
-		cjspCode.addEditorListener(ctl);
-		jtpSourceTabs.addEditorListener(ctl);
 		ClosableTabHeader tab = jtpSourceTabs.addClosableTab(filename, Resources.getASMFileIcon(), cjspCode);
 		
+		cjspCode.addEditorListener(ctl); // listen to text modification
+		tab.addEditorListener(ctl); // listen to the tab opening or closing
 		
-		
+		ctl.onTabHeaderLink(tab); // pass a reference of the tab
+		ctl.onTabOpening(); // trigger a "tab open" event
 	}
 	
 	public void openSourceFile(File f)

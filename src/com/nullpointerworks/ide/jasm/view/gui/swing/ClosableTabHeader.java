@@ -42,7 +42,6 @@ public class ClosableTabHeader extends JPanel
 		title = new JLabel(" "+name+" ");
 		title.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 4));
 		
-		ClosableTabHeader localRerefence = this;
 		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		setOpaque(false);
 		
@@ -61,7 +60,7 @@ public class ClosableTabHeader extends JPanel
 			{
 				for (EditorListener ctl : listeners)
 				{
-					ctl.onTabClosing(parent, localRerefence);
+					ctl.onTabClosing();
 				}
 				parent.removeComponent(comp);
 			}
