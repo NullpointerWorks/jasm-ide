@@ -10,7 +10,7 @@ import com.nullpointerworks.ide.jasm.model.config.Configuration;
 import com.nullpointerworks.ide.jasm.model.config.xml.XMLConfiguration;
 import com.nullpointerworks.ide.jasm.util.PathBuilder;
 import com.nullpointerworks.ide.jasm.view.AssemblerView;
-import com.nullpointerworks.ide.jasm.view.gui.swing.UILookAndFeel;
+import com.nullpointerworks.ide.jasm.view.swing.UILookAndFeel;
 import com.nullpointerworks.util.FileUtil;
 
 public class MainAssemblerIDE 
@@ -23,6 +23,7 @@ public class MainAssemblerIDE
 		Configuration mConfiguration = new XMLConfiguration(mPath);
 		FileHandlerPool mHandlerPool = new FileHandlerPool();
 		AssemblerView vASMView = new AssemblerView();
+		
 		
 		ActionCommand cNewButton = new NewFileActionCommand(vASMView, mHandlerPool);
 		ActionCommand cOpenButton = new OpenFileActionCommand(vASMView, mHandlerPool);

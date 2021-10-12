@@ -1,6 +1,6 @@
 package com.nullpointerworks.ide.jasm.control;
 
-import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableTabHeader;
+import com.nullpointerworks.ide.jasm.view.swing.ClosableTabHeader;
 
 public interface EditorListener 
 {

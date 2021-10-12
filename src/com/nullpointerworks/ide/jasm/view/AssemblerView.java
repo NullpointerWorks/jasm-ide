@@ -19,11 +19,11 @@ import javax.swing.SwingConstants;
 
 import com.nullpointerworks.ide.jasm.Resources;
 import com.nullpointerworks.ide.jasm.control.EditorListener;
-import com.nullpointerworks.ide.jasm.view.gui.awt.AbsoluteLayout;
-import com.nullpointerworks.ide.jasm.view.gui.swing.CodeJScrollPane;
-import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableJTabbedPane;
-import com.nullpointerworks.ide.jasm.view.gui.swing.ClosableTabHeader;
-import com.nullpointerworks.ide.jasm.view.gui.swing.JTextAreaScrollPane;
+import com.nullpointerworks.ide.jasm.view.awt.AbsoluteLayout;
+import com.nullpointerworks.ide.jasm.view.swing.ClosableJTabbedPane;
+import com.nullpointerworks.ide.jasm.view.swing.ClosableTabHeader;
+import com.nullpointerworks.ide.jasm.view.swing.CodeJScrollPane;
+import com.nullpointerworks.ide.jasm.view.swing.JTextAreaScrollPane;
 
 public class AssemblerView
 {

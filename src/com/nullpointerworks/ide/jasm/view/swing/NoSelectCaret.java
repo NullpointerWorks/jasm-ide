@@ -1,4 +1,4 @@
-package com.nullpointerworks.ide.jasm.view.gui.swing;
+package com.nullpointerworks.ide.jasm.view.swing;
 
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.JTextComponent;

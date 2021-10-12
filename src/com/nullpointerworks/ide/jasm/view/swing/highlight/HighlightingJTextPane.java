@@ -1,4 +1,4 @@
-package com.nullpointerworks.ide.jasm.view.gui.swing.highlight;
+package com.nullpointerworks.ide.jasm.view.swing.highlight;
 
 import java.awt.Color;
 import java.awt.Font;

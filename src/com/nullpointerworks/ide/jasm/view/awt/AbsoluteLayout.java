@@ -1,4 +1,4 @@
-package com.nullpointerworks.ide.jasm.view.gui.awt;
+package com.nullpointerworks.ide.jasm.view.awt;
 
 import java.awt.Component;
 import java.awt.Container;

@@ -1,4 +1,4 @@
-package com.nullpointerworks.ide.jasm.view.gui.swing;
+package com.nullpointerworks.ide.jasm.view.swing;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -12,7 +12,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.Element;
 
 import com.nullpointerworks.ide.jasm.control.EditorListener;
-import com.nullpointerworks.ide.jasm.view.gui.swing.highlight.*;
+import com.nullpointerworks.ide.jasm.view.swing.highlight.*;
 
 public class CodeJScrollPane extends JScrollPane
 {

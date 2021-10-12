@@ -15,7 +15,7 @@ public class OpenFileActionCommand implements ActionCommand
 	
 	
 	@Override
-	public void execute() 
+	public void onCommand() 
 	{
 		
 		

@@ -1,4 +1,4 @@
-package com.nullpointerworks.ide.jasm.view.gui.swing;
+package com.nullpointerworks.ide.jasm.view.swing;
 
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;

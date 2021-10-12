@@ -8,6 +8,6 @@ public interface ActionCommand extends ActionListener, Command
 	@Override
 	public default void actionPerformed(ActionEvent e)
 	{
-		execute();
+		onCommand();
 	}
 }

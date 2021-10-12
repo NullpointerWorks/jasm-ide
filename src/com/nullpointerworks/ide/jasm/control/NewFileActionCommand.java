@@ -17,7 +17,7 @@ public class NewFileActionCommand implements ActionCommand
 	}
 	
 	@Override
-	public void execute() 
+	public void onCommand() 
 	{
 		
 		FileHandler mHandler = mHandlerPool.getNewFileHandler("src/com/nullpointerworks/ide/examples/");
